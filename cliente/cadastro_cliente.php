@@ -1,10 +1,19 @@
 <?php
 
-if (isset($_POST['gravar'])) {
-    $arquivo = fopen("texto.txt", "a+");
-    fwrite($arquivo, $_POST['texto']."\n");
-    fclose($arquivo);
-}
+$conn = new PDO(
+    'mysql:host=localhost;dbname=padaria_doce_ceu',
+    'root', '');
+$conn->setAttribute(PDO::ATTR_ERRMODE,
+    PDO::ERRMODE_EXCEPTION);
+
+$stmt = $conn->prepare(
+    'SELECT *
+           FROM cliente ');
+
+$stmt->execute();
+$resultado = $stmt->fetchAll();
+foreach($resultado as $linha)
+    print_r($linha);
 
 ?>
 
